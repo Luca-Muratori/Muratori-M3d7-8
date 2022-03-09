@@ -29,7 +29,7 @@
                 </li>
         </div>
     </nav>
-    <div class="container">
+    <div class="container mt-3">
         <div class="row" id="containerStrivizon">
         </div>
     </div>
@@ -60,7 +60,6 @@
                     }
                 })
                 const data=await response.json()
-                console.log(data)
                 renderData(data)
             } catch (error) {
                 console.log(error)
@@ -69,14 +68,14 @@
 
         function renderData(data){
             data.forEach(element=>{
-                container.innerHtml+=`
-                    <div class="col col-md-4">
+                container.innerHTML+=`
+                    <div class="col col-md-4 col-lg-3">
                         <div class="card" >
                         <img src="${element.imageUrl}" class="card-img-top" alt="image">
                             <div class="card-body">
                                 <h5 class="card-title">${element.name}</h5>
                                 <p class="card-text">${element.description}</p>
-                                <p class="card-text">${element.price}</p>
+                                <p class="card-text">${element.price} $</p>
                                 <p class="card-text">${element.brand}</p>
                             </div>
                         </div>

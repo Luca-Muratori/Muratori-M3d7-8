@@ -29,12 +29,13 @@
         </div>
     </nav>
 
-    <form action="" class="d-flex flex-column align-items-center">
-        <input class="my-3" type="text" placeholder="product's name">
-        <input class="my-3" type="text" placeholder="description">
-        <input class="my-3" type="text" placeholder="brand's product">
-        <input class="my-3" type="link" placeholder="photo's product">
-        <input class="my-3" type="number" placeholder="price's product">
+    <form class="d-flex flex-column align-items-center" onsubmit="handleChange(event)">
+        <input id="name" class="my-3 " type="text" placeholder="product's name">
+        <input id="description" class="my-3 " type="text" placeholder="description">
+        <input id="brand" class="my-3 " type="text" placeholder="brand's product">
+        <input id="photo" class="my-3 " type="link" placeholder="photo's product">
+        <input id="price" class="my-3 " type="number" placeholder="price's product">
+        <button type="submit">Add the product</button>
     </form>
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -45,6 +46,45 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+    <script>
+        const name = document.querySelector('#name')
+        const description = document.querySelector('#description')
+        const brand = document.querySelector('#brand')
+        const photo = document.querySelector('#photo')
+        const price=document.querySelector('#price')
+
+        async function handleChange(e){
+            e.preventDefault()
+            const bodyObj={
+                name:name.value,
+                description:description.value,
+                brand:brand.value,
+                imageUrl:photo.value,
+                price: price.value,
+            }
+            
+            const body=JSON.stringify(bodyObj)
+            console.log(body)
+
+            const response= await fetch ('https://striveschool-api.herokuapp.com/api/product',
+            {
+                headers:{
+                    method: 'POST',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjA1MGFjY2RhNDBjOTAwMTVmYzhkNjkiLCJpYXQiOjE2NDY4MzM3MTMsImV4cCI6MTY0ODA0MzMxM30.YLa1a_Wtl5CjmvMh6XuqWcJhyGKYdhDCGoYiZCmuEjc',
+                    'Content-type': 'application/json'
+                },
+                body:body
+            })
+
+            if(response.ok){
+                const data=await response.json()
+                alert('success: the product is now on the front page')
+            } else{
+                alert('Oh no, something went wrong')
+            }
+        }
+
+    </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
